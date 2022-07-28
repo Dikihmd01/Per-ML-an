@@ -58,6 +58,7 @@ diabetes = diabetes[~((diabetes < (Q1 - 1.5 * IQR)) | (diabetes > (Q3 + 1.5 * IQ
 ```
 ### Split Datset
 Split data adalah pembagian dataset menjadi 2 bagian, yaitu data train dan data test dengan menggunakan librari dari keras, yaitu **train_test_split()**.
+
 <img width="226" alt="image" src="https://user-images.githubusercontent.com/36911342/181468763-633d2ba0-e938-4084-8bf7-c95f6dceafea.png">
 
 ## Modelling
