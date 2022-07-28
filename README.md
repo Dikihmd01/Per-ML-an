@@ -110,6 +110,9 @@ Score:
 
 Berdasarkan hasil evaluasi model, diperoleh akurasi prediksi 81% dengan menggunakan algoritma *Random Forest*. Dengan demikian, dapat disimpulkan bahwa algoritma *Random Forest* adalah model yang baik dan cocok untuk melakukan klasifikasi diabetes terhadap pasien.
 
+## Kesimpulan
+Berdasarkan dari serangkaian proses di atas dan perbandingan dari 3 algortima, dapat disimpulkan bahwa model *random forest* adalah model dengan akurasi yang terbaik dibandingkan tiga algoritma lainnya. Serta pada evaluasi model diperoleh akurasi di atas 80% yang membuktikan model *random forest* layak digunakan untuk masalah klasifikasi diabates terhadap pasien.
+
 ## Referensi
 [1] Wahyuni, Sri, and Raihana N. Alkaff. "Diabetes Mellitus Pada Perempuan Usia Reproduksi Di Indonesia Tahun 2007." Indonesian Journal of Reproductive Health, vol. 3, no. 1, Apr. 2012, pp. 46-51.
 
