@@ -1,5 +1,5 @@
 # Domain Proyek
-Proyek yang dikembangkan adalah sistem rekomendasi terhadap judul film berdasarkan rating yang telah diberikan pengguna yang diperoleh dari website penyedia dataset, Kaggle. Permasalahan yang diselesaikan dalam proyek ini adalah supaya pengguna dapat memdapatkan rekomendasi film yang memilikii kemiripan dengan preferensi pengguna di masa lalu [[1]](https://www.dicoding.com/academies/319/tutorials/19662). Teknik ini disebut dengan *collaborative filtering*.
+Proyek yang dikembangkan adalah sistem rekomendasi terhadap judul film berdasarkan rating yang telah diberikan pengguna yang diperoleh dari website penyedia dataset, Kaggle. Permasalahan yang diselesaikan dalam proyek ini adalah supaya pengguna dapat memdapatkan rekomendasi film yang memiliki kemiripan dengan preferensi pengguna di masa lalu [[1]](https://www.dicoding.com/academies/319/tutorials/19662). Teknik ini disebut dengan *collaborative filtering*.
 
 # Business Understanding
 ## Problem statements
@@ -11,7 +11,7 @@ Proyek yang dikembangkan adalah sistem rekomendasi terhadap judul film berdasark
 - Mengidentifikasi judul-judul film yang mirip dan belum pernah dikunjungi oleh pengguna untuk direkomendasikan.
 
 ## Solution statements
-Untuk mencapai tujuan, masalah ini dapat diselesaikan dengan menerapkan teknsik yang disebut dengan *collaborative filtering*. metode ini menghasilkan rekomendasi berdasarkan pola penggunaan tanpa memerlukan informasi eksogen tentang item atau pengguna [[2]](https://link.springer.com/chapter/10.1007/978-1-0716-2197-4_3). Algoritma *collaborative filtering* telah menunjukkan kualitas prediksi yang bagus baik dalam penelitian akademis maupun dalam aplikasi industri. Kualitas rekomendasi yang diberikan dengan menggunakan metode ini sangat bergantung dari opini pengguna lain (neighbor) terhadap suatu item. Belakangan diketahui bahwa melakukan reduksi neighbor (yaitu dengan memotong neighbor sehingga hanya beberapa pengguna yang memiliki kesamaan / similiarity tertinggi sajalah yang akan digunakan dalam perhitungan) mampu meningkatkan kualitas rekomendasi yang diberikan [[3]](http://www.jurnal.stmik-mi.ac.id/index.php/jcb/article/view/167/189).
+Untuk mencapai tujuan, masalah ini dapat diselesaikan dengan menerapkan teknik yang disebut dengan *collaborative filtering*. metode ini menghasilkan rekomendasi berdasarkan pola penggunaan tanpa memerlukan informasi eksogen tentang item atau pengguna [[2]](https://link.springer.com/chapter/10.1007/978-1-0716-2197-4_3). Algoritma *collaborative filtering* telah menunjukkan kualitas prediksi yang bagus baik dalam penelitian akademis maupun dalam aplikasi industri. Kualitas rekomendasi yang diberikan dengan menggunakan metode ini sangat bergantung dari opini pengguna lain (neighbor) terhadap suatu item. Belakangan diketahui bahwa melakukan reduksi neighbor (yaitu dengan memotong neighbor sehingga hanya beberapa pengguna yang memiliki kesamaan / similiarity tertinggi sajalah yang akan digunakan dalam perhitungan) mampu meningkatkan kualitas rekomendasi yang diberikan [[3]](http://www.jurnal.stmik-mi.ac.id/index.php/jcb/article/view/167/189).
 
 # Data Understanding
 ![image](https://user-images.githubusercontent.com/36911342/187083551-b84e8de5-5be4-413d-bf73-4ca74e5ac4e3.png)
@@ -208,17 +208,16 @@ Pada tahap ini, model menghitung skor kecocokan antara pengguna dengan teknik em
 3. Dapat juga dengan menambahkan bias untuk setiap user dan film.
 4. Skor kecocokan ditetapkan dalam skala [0, 1] dengan fungsi aktivasi sigmoid.
 
+Hasil pengujian mendapatkan rekomendasi film.
+![image](https://user-images.githubusercontent.com/36911342/187084308-ecb85587-f9ab-4cba-a234-1114d402c5b7.png)
+
 # Evaluation
 ![image](https://user-images.githubusercontent.com/36911342/187084151-ff152298-e467-470d-ba90-36efec8f5419.png)
 
 Dari hasil visualiasi pada gambar di atas, diperoleh informasi sebagai berikut.
 
-- RMSE pada data training dan validasi berada di angka tidak lebih dari 0.25
+- Nilai RMSE ini lebih dari 0.25 karena diepoch pertama RMSE 0.30
 - Semakin banyak epoch, semakin kecil RMSE yang diperoleh
-
-Hasil pengujian mendapatkan rekomendasi film.
-
-![image](https://user-images.githubusercontent.com/36911342/187084308-ecb85587-f9ab-4cba-a234-1114d402c5b7.png)
 
 # Kesimpulan
 Berdasarkan serangkaian proses yang telah dilakukan, hasil dari rekomendasi yang diberikan oleh sistem ini dengan menerapkan teknik *collaborative filtering* cukup baik dan akurat dengan hasil RMSE yang kecil.
