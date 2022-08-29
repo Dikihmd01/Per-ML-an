@@ -53,7 +53,127 @@ Pada tahap ini, yang harus dilakukan adalah menggabungkan 2 dataset yang terpisa
 movies = pd.merge(movie, rating, on='item_id')
 movies
 ```
-![image](https://user-images.githubusercontent.com/36911342/187083917-577555c4-d678-4aae-bdd2-59aaf6b4980b.png)
+Hasilnya seperti pada tabel di bawah ini.
+Hasil seperti pada tabel di bawah ini.
+|   | id  | title  |
+|---|---|---|
+| 0  | 1  | Toy Story (1995)  |
+| 1  | 2  | GoldenEye (1995)  |
+| 2  | 3  | Four Rooms (1995)  |
+| 3  | 4  | Get Shorty (1995)  |
+| 4  | 5  | Copycat (1995)  |
+| ...  | ...  | ...  |
+| 99998  | 1678  | Mat' i syn (1997)  |
+| 99999  | 1679  | B. Monkey (1998)  |
+| 100000  | 1680  | Sliding Doors (1998)  |
+| 100001  | 1681  | You So Crazy (1994)  |
+| 100002  | 1682  | Scream of Stone (Schrei aus Stein) (1991)  |
+
+100003 rows × 2 columns
+
+## Drop Duplicate
+Setelah melakukan penggabungan dataset, hasil dataset berisi banyak nilai yang duplikat. Maka langkah selanjutnya adalah menerapkan *drop duplicate*, setelah melakukan *drop duplicates* data yang disiapkan menjadi 1682 baris.
+|   | id  | title  |
+|---|---|---|
+| 0  | 1  | Toy Story (1995)  |
+| 1  | 2  | GoldenEye (1995)  |
+| 2  | 3  | Four Rooms (1995)  |
+| 3  | 4  | Get Shorty (1995)  |
+| 4  | 5  | Copycat (1995)  |
+| ...  | ...  | ...  |
+| 99998  | 1678  | Mat' i syn (1997)  |
+| 99999  | 1679  | B. Monkey (1998)  |
+| 100000  | 1680  | Sliding Doors (1998)  |
+| 100001  | 1681  | You So Crazy (1994)  |
+| 100002  | 1682  | Scream of Stone (Schrei aus Stein) (1991)  |
+
+1682 rows × 2 columns
+
+Perhatikan keterangan baris, terdapat ** *1682 rows × 2 columns* **.
+
+## Convert Fitur Menjadi List, Encoding, dan Mapping
+Langkah pertama untuk konversi ke dalam list adalah dengan membuat variabel baru, yaitu **movie_id** dan **movie_title**. Seperti pada potongna kode di bawah ini.
+```python
+movie_id = preparation['item_id'].tolist()
+movie_title = preparation['title'].tolist()
+```
+Setelah membuat variabel baru, langkah selanjutnya adalah dengan memasukkan dua variabel tersbut ke dalam *dictionary* untuk dijadikan series dataframe yang di masukkan ke dalam varibel baru bernama **movie_new**.
+```python
+# Membuat dictionary
+movie_new = pd.DataFrame({
+    'id': movie_id,
+    'title': movie_title
+})
+
+movie_new
+```
+Hasil seperti pada tabel di bawah ini.
+|   | id  | title  |
+|---|---|---|
+| 0  | 1  | Toy Story (1995)  |
+| 1  | 2  | GoldenEye (1995)  |
+| 2  | 3  | Four Rooms (1995)  |
+| 3  | 4  | Get Shorty (1995)  |
+| 4  | 5  | Copycat (1995)  |
+| ...  | ...  | ...  |
+| 1677  | 1678  | Mat' i syn (1997)  |
+| 1678  | 1679  | B. Monkey (1998)  |
+| 1679  | 1680  | Sliding Doors (1998)  |
+| 1680  | 1681  | You So Crazy (1994)  |
+| 1681  | 1682  | Scream of Stone (Schrei aus Stein) (1991)  |
+
+1682 rows × 2 columns
+
+- Mengubah item_id menjadi list yang unique
+```python
+movie_ids = rating['item_id'].unique().tolist()
+```
+- Melakukan proses encoding item_id
+```python
+movie_to_movie_encoded = {x: i for i, x in enumerate(movie_ids)}
+```
+
+- Melakukan proses encoding angka ke item_id
+```python
+movie_encoded_to_movie = {i: x for i, x in enumerate(movie_ids)}
+```
+- Mapping user_id ke dataframe user dan movie
+```python
+# Mapping user_id ke dataframe user dan movie
+rating['user'] = rating['user_id'].map(user_to_user_encoded)
+rating['movie'] = rating['item_id'].map(movie_to_movie_encoded)
+```
+
+```python
+# Cek jumlah user
+num_users = len(user_to_user_encoded)
+print(num_users)
+
+# Cek jumlah movie
+num_movie = len(movie_to_movie_encoded)
+print(num_movie)
+
+# Mengubah string menjadi nilai float
+rating['rating'] = rating['rating'].values.astype(np.float32)
+
+# Nilai min, rating
+min_rating = min(rating['rating'])
+
+# Nilai max. rating
+max_rating = max(rating['rating'])
+
+print('Number of User: {}, Number of Movie: {}, Min Rating: {}, Max Rating: {}'.format(
+    num_users, num_movie, min_rating, max_rating
+))
+```
+
+Dari hasil persiapan data, maka diperoeh informasi sebagai berikut.
+
+- Jumlah pengguna sebanyak 944  .
+- Jumlah judul film sebanyak 1682.
+- Minimal penilaian yang diterima adalah 1.0.
+- Maksimlam penilaian yang diterima adalah 5.0
+- Skala penilaian film adalah 1-5.
 
 ## Split Dataset
 Komposisi yang digunakan untuk membagi dataset ini adalah 80:20. Sebelum itu, diperlukkan mapping data user dan resto menjadi satu nilai terlebih dahulu. Lalu, membuat rating dalam sekala 0 - 1 agar mempermudah dalam proses training.
@@ -103,7 +223,6 @@ Hasil pengujian mendapatkan rekomendasi film.
 # Kesimpulan
 Berdasarkan serangkaian proses yang telah dilakukan, hasil dari rekomendasi yang diberikan oleh sistem ini dengan menerapkan teknik *collaborative filtering* cukup baik dan akurat dengan hasil RMSE yang kecil.
 
-# Referensi
 # Referensi
 [1] Machine Learning Terapan, Dicoding
 
